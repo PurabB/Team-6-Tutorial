@@ -30,31 +30,28 @@ Any additional notes from the developers can be included here.
 This tutorial demonstrates how to connect a Bluetooth game controller to an ESP32 development module, specifically using a wireless Xbox controller with the ESP32-S3 to control a robotic arm. The primary objective is to establish a connection between the controller and the ESP module, enabling the reading of all inputs effectively. The motivation behind this tutorial is to provide a practical example of integrating Bluetooth game controllers with ESP modules, showcasing their potential in robotics and other applications. By following this tutorial, readers will gain hands-on experience in setting up and configuring the hardware and software, ultimately enhancing their understanding of Bluetooth communication and control systems.
 
 ## Getting Started
+### Required Downloads and Installations
+--
+software: Arduino IDE The Arduino Integrated Development Environment (IDE) is a cross-platform application used to write and upload programs to Arduino-compatible boards.
+installation process: Download the Arduino IDE from the official website.
 
-Hardware:
+Follow the installation instructions for your operating system (Windows, macOS, or Linux).
+
+Open the Arduino IDE and go to File > Preferences.
+
+In the "Additional Boards Manager URLs" field, add the following URL: https://dl.espressif.com/dl/package_esp32_index.json.
+
+Go to Tools > Board > Boards Manager, search for "ESP32", and install the ESP32 board package.
+--
+
+### Required Components
+
 | Component Name           | Quantity |
 |--------------------------|----------|
 | ESP32-S3 Dev Module      | 1        |
 | Wireless Xbox Controller | 1        |
 | USB Cable                | 1        |
 | Power Supply             | 1        |
-
-
-
-### Required Downloads and Installations
-
-List any required downloads and installations here.
-Make sure to include tutorials on how to install them.
-You can either make your own tutorials or include a link to them.
-
-### Required Components
-
-List your required hardware components and the quantities here.
-
-| Component Name | Quanitity |
-| -------------- | --------- |
-|                |           |
-|                |           |
 
 ### Required Tools and Equipment
 

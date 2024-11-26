@@ -60,7 +60,7 @@ installation process:
 
 All you will need is a functional computer with Arduino installed and running with an USB port.
 
-## Part 01: Name
+## Part 01: Reading Controller Values
 
 ### Introduction
 

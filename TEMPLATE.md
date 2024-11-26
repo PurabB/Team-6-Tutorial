@@ -31,18 +31,15 @@ This tutorial demonstrates how to connect a Bluetooth game controller to an ESP3
 
 ## Getting Started
 ### Required Downloads and Installations
---
+---
 software: Arduino IDE The Arduino Integrated Development Environment (IDE) is a cross-platform application used to write and upload programs to Arduino-compatible boards.
-installation process: Download the Arduino IDE from the official website.
-
-Follow the installation instructions for your operating system (Windows, macOS, or Linux).
-
-Open the Arduino IDE and go to File > Preferences.
-
-In the "Additional Boards Manager URLs" field, add the following URL: https://dl.espressif.com/dl/package_esp32_index.json.
-
-Go to Tools > Board > Boards Manager, search for "ESP32", and install the ESP32 board package.
---
+installation process: 
+-Download the Arduino IDE from the official website.
+-Follow the installation instructions for your operating system (Windows, macOS, or Linux).
+-Open the Arduino IDE and go to File > Preferences.
+-In the "Additional Boards Manager URLs" field, add the following URL: https://dl.espressif.com/dl/package_esp32_index.json.
+-Go to Tools > Board > Boards Manager, search for "ESP32", and install the ESP32 board package.
+---
 
 ### Required Components
 

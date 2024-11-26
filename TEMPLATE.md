@@ -57,8 +57,7 @@ installation process:
 
 ### Required Tools and Equipment
 
-List any tools and equipment you need here.
-(Ex, computer, soldering station, etc.)
+All you will need is a functional computer with Arduino installed and running with an USB port.
 
 ## Part 01: Name
 

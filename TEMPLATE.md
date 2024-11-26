@@ -7,7 +7,7 @@ authors:
   - name: Aleksandar Jeremic
 ---
 
-![relevant graphic or workshop logo](image/path)
+![Xbox controller connected to ESP32.png)
 
 ## Introduction
 

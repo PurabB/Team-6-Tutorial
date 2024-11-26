@@ -1,5 +1,5 @@
 ---
-title: Connecting Game Controller to any ESP chip with Bluetooth tutorial.
+title: Connecting Game Controller to any ESP dev module with Bluetooth tutorial.
 date: 11-25-2024
 authors:
   - name: Purab Balani
@@ -11,37 +11,35 @@ authors:
 
 ## Introduction
 
-This tutorial aims to show you how to connect any esp dev modules to a 
+This tutorial is designed to guide you through connecting any ESP development module to a Bluetooth game controller. Specifically, we will demonstrate using a wireless Xbox controller with the ESP32-S3 dev module to control a robotic arm. The primary objective is to establish a connection between the controller and the ESP module, enabling you to read all inputs effectively.
 
-What is the motivation behind the tutorial?
-What do you want readers to gain from the tutorial?
+The motivation behind this tutorial is to provide a practical example of integrating Bluetooth game controllers with ESP modules, showcasing their potential in robotics and other applications. By following this tutorial, readers will gain hands-on experience in setting up and configuring the hardware and software, ultimately enhancing their understanding of Bluetooth communication and control systems.
 
 ### Learning Objectives
 
-- Bullet list of skills/concepts to be covered
+- Bluetooth Communication: Understanding how to establish a Bluetooth connection between the ESP32-S3 and a game controller.
+- ESP32-S3 Configuration: Setting up the ESP32-S3 development module for Bluetooth communication.
+- Controller Input Reading: Learning how to read inputs from a wireless Xbox controller.
+- Firmware Development: Writing and configuring firmware to handle Bluetooth communication and input processing.
+- Troubleshooting: Identifying and resolving common issues in Bluetooth communication and hardware setup.
 
 Any additional notes from the developers can be included here.
 
 ### Background Information
 
-Describe your topic here. What does it do? Why do you use it?
-Are there other similar things to use? What are the pros and cons?
-Explain important concepts that are necessary to understand.
-Include (and cite if needed) any visuals that will help the audience understand.
+This tutorial demonstrates how to connect a Bluetooth game controller to an ESP32 development module, specifically using a wireless Xbox controller with the ESP32-S3 to control a robotic arm. The primary objective is to establish a connection between the controller and the ESP module, enabling the reading of all inputs effectively. The motivation behind this tutorial is to provide a practical example of integrating Bluetooth game controllers with ESP modules, showcasing their potential in robotics and other applications. By following this tutorial, readers will gain hands-on experience in setting up and configuring the hardware and software, ultimately enhancing their understanding of Bluetooth communication and control systems.
 
 ## Getting Started
 
-For any software prerequisites, write a simple excerpt on each
-technology the participant will be expecting to download and install.
-Aim to demystify the technologies being used and explain any design
-decisions that were taken. Walk through the installation processes
-in detail. Be aware of any operating system differences.
-For hardware prerequisites, list all the necessary components that
-the participant will receive. A table showing component names and
-quantities should suffice. Link any reference sheets or guides that
-the participant may need.
-The following are stylistic examples of possible prerequisites,
-customize these for each workshop.
+Hardware:
+| Component Name           | Quantity |
+|--------------------------|----------|
+| ESP32-S3 Dev Module      | 1        |
+| Wireless Xbox Controller | 1        |
+| USB Cable                | 1        |
+| Power Supply             | 1        |
+
+
 
 ### Required Downloads and Installations
 

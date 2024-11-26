@@ -1,5 +1,5 @@
 ---
-title: Connecting Game Controller to any ESP dev module with Bluetooth tutorial.
+title: Connecting Game Controller to any ESP32 dev module with Bluetooth tutorial.
 date: 11-25-2024
 authors:
   - name: Purab Balani
@@ -11,7 +11,7 @@ authors:
 
 ## Introduction
 
-This tutorial is designed to guide you through connecting any ESP development module to a Bluetooth game controller. Specifically, we will demonstrate using a wireless Xbox controller with the ESP32-S3 dev module to control a robotic arm. The primary objective is to establish a connection between the controller and the ESP module, enabling you to read all inputs effectively.
+This tutorial is designed to guide you through connecting any ESP development module to a Bluetooth game controller. Specifically, we will demonstrate using a wireless Xbox controller with the ESP32-S3 dev module to control a robotic arm. The primary objective is to establish a connection between the controller and the ESP32 module, enabling you to read all inputs effectively.
 
 The motivation behind this tutorial is to provide a practical example of integrating Bluetooth game controllers with ESP modules, showcasing their potential in robotics and other applications. By following this tutorial, readers will gain hands-on experience in setting up and configuring the hardware and software, ultimately enhancing their understanding of Bluetooth communication and control systems.
 
@@ -40,7 +40,8 @@ installation process:
   - Open the Arduino IDE and go to File > Preferences.
   - In the "Additional Boards Manager URLs" field, add the following URLs: `https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json`
 `https://raw.githubusercontent.com/ricardoquesada/esp32-arduino-lib builder/master/bluepad32_files/package_esp32_bluepad32_index.json`
-  - Go to Tools > Board > Boards Manager, search for "ESP32", and install the ESP32 board package.
+  - Go to Tools > Board > Boards Manager, search for "ESP32", and install the ESP32 by Espressif as well as esp32_bluepad32 by Ricardo Quesada board package.
+  - Go to Tools > Board > esp32_bluepad32, search for your esp board module in my case it is ESP32S3 Dev Module, and choose your COM port.
 ---
 
 

@@ -1,16 +1,18 @@
 ---
-title: My Super Awesome Tutorial
-date: 1970-01-01
+title: Connecting Game Controller to any ESP chip with Bluetooth tutorial.
+date: 11-25-2024
 authors:
-  - name: John Doe
-  - name: Mary Jane
+  - name: Purab Balani
+  - name: Syler Sylvester
+  - name: Aleksandar Jeremic
 ---
 
 ![relevant graphic or workshop logo](image/path)
 
 ## Introduction
 
-Write a short section on what the tutorial is aiming to accomplish.
+This tutorial aims to show you how to connect any esp dev modules to a 
+
 What is the motivation behind the tutorial?
 What do you want readers to gain from the tutorial?
 

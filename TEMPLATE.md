@@ -101,39 +101,9 @@ This example demonstrates how to detect when a game controller connects to the E
 
 ### Example
 
-#include <Bluepad32.h>
-ControllerPtr myControllers[BP32_MAX_GAMEPADS];
+![image](https://github.com/user-attachments/assets/51e16b75-9ca7-4fa5-a70d-b401a36cd52b)
+![image](https://github.com/user-attachments/assets/374baaf6-805f-44bd-a40a-626ceee32bdb)
 
-void onConnectedController(ControllerPtr ctl) {
-    for (int i = 0; i < BP32_MAX_GAMEPADS; i++) {
-        if (myControllers[i] == nullptr) {
-            myControllers[i] = ctl;
-            USBSerial.printf("Controller connected: %s\n", ctl->getModelName().c_str());
-            break;
-        }
-    }
-}
-
-void onDisconnectedController(ControllerPtr ctl) {
-    for (int i = 0; i < BP32_MAX_GAMEPADS; i++) {
-        if (myControllers[i] == ctl) {
-            myControllers[i] = nullptr;
-            USBSerial.println("Controller disconnected");
-            break;
-        }
-    }
-}
-
-void setup() {
-    USBSerial.begin(115200);
-    BP32.setup(&onConnectedController, &onDisconnectedController);
-    BP32.forgetBluetoothKeys();
-}
-
-void loop() {
-    BP32.update();
-    delay(100);
-}
 
 
 ### Analysis

@@ -102,7 +102,8 @@ This example demonstrates how to detect when a game controller connects to the E
 ### Example
 
 ![image](https://github.com/user-attachments/assets/51e16b75-9ca7-4fa5-a70d-b401a36cd52b)
-![image](https://github.com/user-attachments/assets/374baaf6-805f-44bd-a40a-626ceee32bdb)
+![image](https://github.com/user-attachments/assets/381ea05c-1185-41f1-a1ee-a25e7aceee6b)
+
 
 
 

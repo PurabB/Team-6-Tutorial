@@ -60,44 +60,87 @@ installation process:
 
 All you will need is a functional computer with Arduino installed and running with an USB port.
 
-## Part 01: Reading Controller Values
+## Part 01: Connecting controller with ESP32
 
 ### Introduction
 
-Briefly introduce what  you are teaching in this section.
+In this section, you will learn how to connect a game controller to the ESP32 using the Bluepad32 library. This forms the foundation for reading and processing input values from the controller.
 
 ### Objective
 
-- List the learning objectives of this section
+- Understand the process of connecting a game controller to the ESP32.
+- Learn to set up Bluepad32 callbacks for controller connections.
+- Identify and handle multiple connected controllers.
 
 ### Background Information
 
-Give a brief explanation of the technical skills learned/needed
-in this challenge. There is no need to go into detail as a
-separation document should be prepared to explain more in depth
-about the technical skills
+- Programming in C/C++ for ESP32.
+- Bluetooth communication principles.
+- Setting up the Arduino environment for ESP32.
 
 ### Components
 
-- List the components needed in this challenge
+- ESP32 development board
+- Game controller (Bluetooth-compatible)
+- USB cable for programming ESP32
+- Arduino IDE or PlatformIO
 
 ### Instructional
 
-Teach the contents of this section
+- Install Bluepad32 Library: Ensure you have the Bluepad32 library installed in your Arduino environment.
+- Set Up Callbacks: Implement onConnectedController() and onDisconnectedController() functions to handle controller connections.
+- Connect Controller: Power on your controller and put it into pairing mode.
+- Upload Code to ESP32: Compile and upload the code provided in the example section to your ESP32.
+- pair the controller
 
 ## Example
 
 ### Introduction
 
-Introduce the example that you are showing here.
+This example demonstrates how to detect when a game controller connects to the ESP32 and outputs basic information about the connected controller.
 
 ### Example
 
-Present the example here. Include visuals to help better understanding
+#include <Bluepad32.h>
+ControllerPtr myControllers[BP32_MAX_GAMEPADS];
+
+void onConnectedController(ControllerPtr ctl) {
+    for (int i = 0; i < BP32_MAX_GAMEPADS; i++) {
+        if (myControllers[i] == nullptr) {
+            myControllers[i] = ctl;
+            USBSerial.printf("Controller connected: %s\n", ctl->getModelName().c_str());
+            break;
+        }
+    }
+}
+
+void onDisconnectedController(ControllerPtr ctl) {
+    for (int i = 0; i < BP32_MAX_GAMEPADS; i++) {
+        if (myControllers[i] == ctl) {
+            myControllers[i] = nullptr;
+            USBSerial.println("Controller disconnected");
+            break;
+        }
+    }
+}
+
+void setup() {
+    USBSerial.begin(115200);
+    BP32.setup(&onConnectedController, &onDisconnectedController);
+    BP32.forgetBluetoothKeys();
+}
+
+void loop() {
+    BP32.update();
+    delay(100);
+}
+
 
 ### Analysis
 
-Explain how the example used your tutorial topic. Give in-depth analysis of each part and show your understanding of the tutorial topic
+- Callbacks: onConnectedController() is called when a new controller connects, printing its model name.
+- Controller Management: An array myControllers tracks up to 4 connected controllers.
+- Initialization: BP32.setup() sets the connection callbacks, and forgetBluetoothKeys() clears previous Bluetooth pairings for clean connections.
 
 ## Additional Resources
 

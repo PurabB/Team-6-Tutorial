@@ -104,14 +104,72 @@ This example demonstrates how to detect when a game controller connects to the E
 ![image](https://github.com/user-attachments/assets/51e16b75-9ca7-4fa5-a70d-b401a36cd52b)
 ![image](https://github.com/user-attachments/assets/381ea05c-1185-41f1-a1ee-a25e7aceee6b)
 
+## Part 02: retrieving Gamepad Data
+
+### Introduction
+
+In this section, you will learn how to retrieve and display real-time data from the game controller. This involves accessing inputs such as joystick positions, button states, and motion data, enabling you to monitor the controller's state in detail.
+
+### Objective
+
+- Understand how to extract gamepad data using Bluepad32.
+- Display real-time gamepad data via serial output.
+- Familiarize yourself with controller properties like axis, buttons, and motion sensors.
+
+### Background Information
+
+- Reading and interpreting joystick and button inputs.
+- Serial communication with the ESP32 for data monitoring.
+- Controller properties and their relevance to applications.
+
+### Components
+
+- ESP32 development board
+- Bluetooth-compatible game controller
+- USB cable for programming and monitoring ESP32
+- Arduino IDE or PlatformIO
+
+### Instructional
+
+- **Gamepad Data Function**: Implement the `dumpGamepad()` function to retrieve all relevant data from the connected game controller.
+- **Access Controller Properties**: Use the gamepad API to fetch joystick positions, button states, and sensor data.
+- **Monitor Serial Output**: View the retrieved data in the serial monitor for analysis.
+- **Iterate Over Controllers**: Ensure data is dumped for all connected controllers using a loop.
+
+## Example
+
+### Introduction
+
+The example below retrieves and displays gamepad data such as joystick axis values, button states, and accelerometer/gyroscope readings.
+
+### Example Code
+
+```cpp
+void dumpGamepad(ControllerPtr ctl) {
+    USBSerial.printf(
+        "idx=%d, dpad: 0x%02x, buttons: 0x%04x, axis L: %4d, %4d, axis R: %4d, %4d, brake: %4d, throttle: %4d, "
+        "misc: 0x%02x, gyro x:%6d y:%6d z:%6d, accel x:%6d y:%6d z:%6d\n",
+        ctl->index(),        // Controller Index
+        ctl->dpad(),         // D-pad
+        ctl->buttons(),      // Bitmask of pressed buttons
+        ctl->axisX(),        // (-511 - 512) left X Axis
+        ctl->axisY(),        // (-511 - 512) left Y Axis
+        ctl->axisRX(),       // (-511 - 512) right X Axis
+        ctl->axisRY(),       // (-511 - 512) right Y Axis
+        ctl->brake(),        // (0 - 1023): Brake button
+        ctl->throttle(),     // (0 - 1023): Throttle button
+        ctl->miscButtons(),  // Bitmask of "misc" buttons
+        ctl->gyroX(),        // Gyroscope X
+        ctl->gyroY(),        // Gyroscope Y
+        ctl->gyroZ(),        // Gyroscope Z
+        ctl->accelX(),       // Accelerometer X
+        ctl->accelY(),       // Accelerometer Y
+        ctl->accelZ()        // Accelerometer Z
+    );
+}
 
 
 
-### Analysis
-
-- Callbacks: onConnectedController() is called when a new controller connects, printing its model name.
-- Controller Management: An array myControllers tracks up to 4 connected controllers.
-- Initialization: BP32.setup() sets the connection callbacks, and forgetBluetoothKeys() clears previous Bluetooth pairings for clean connections.
 
 ## Additional Resources
 

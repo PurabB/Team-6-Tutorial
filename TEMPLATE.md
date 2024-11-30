@@ -60,6 +60,7 @@ installation process:
 
 All you will need is a functional computer with Arduino installed and running with an USB port.
 
+---
 ## Part 01: Connecting controller with ESP32
 
 ### Introduction
@@ -160,6 +161,19 @@ void processControllers() {
 }
 
 ```
+### Analysis
+
+The first part of this tutorial focuses on establishing a connection between the game controller and the ESP32 module using the Bluepad32 library. The example code includes essential steps such as initializing the library, defining callback functions for handling controller connections, and implementing basic diagnostics to confirm successful pairing.
+
+#### Code Walkthrough
+
+- **Callback Functions**: `onConnectedController` and `onDisconnectedController` handle events when a controller connects or disconnects. They assign or clear the controller pointer from the `myControllers` array.
+- **Controller Properties**: The code retrieves and prints controller properties like vendor ID (VID) and product ID (PID) for diagnostic purposes.
+- **Processing Controllers**: The `processControllers()` function iterates through the array of connected controllers and processes inputs only if the controller is connected and has new data.
+
+This section ensures a robust connection between the game controller and ESP32, enabling further interaction.
+
+---
 
 ## Part 02: retrieving Gamepad Data
 
@@ -225,6 +239,21 @@ void dumpGamepad(ControllerPtr ctl) {
     );
 }
 ```
+### Analysis
+
+This part introduces retrieving real-time input data from the controller and dumping it to the serial monitor for analysis. It helps developers understand how the controller's inputs can be accessed and interpreted.
+
+#### Code Walkthrough
+
+- **Dump Function**: The `dumpGamepad()` function retrieves key data points from the controller, such as:
+  - **Joystick Axes (`axisX`, `axisY`, `axisRX`, `axisRY`)**: These represent the X and Y positions of the left and right joysticks.
+  - **D-pad and Buttons**: Represented as bitmasks for easily determining the state of each input.
+  - **Accelerometer and Gyroscope Data**: Provides motion-sensing capabilities for advanced control.
+- **Serial Output**: Outputs the retrieved data in a structured format for debugging or analysis.
+
+This section provides a clear understanding of game controller input structures, preparing developers for integration with hardware.
+
+---
 
 ## Part 03: Mapping Controller Inputs to LED Brightness
 
@@ -285,7 +314,23 @@ void processGamepad(ControllerPtr ctl) {
     dumpGamepad(ctl);
 }
 ```
+### Analysis
 
+This part builds on the previous sections by using the joystick’s Y-axis input to control an LED’s brightness, demonstrating the practical application of game controller inputs.
+
+#### Code Walkthrough
+
+- **Retrieve Input**: The `axisRY()` method fetches the joystick’s vertical position, which ranges from -511 (up) to 512 (down).
+- **Mapping and Constraining Values**:
+  - `map(axisValue, -511, 512, 255, 0)` converts joystick input to PWM-compatible brightness levels (0–255).
+  - `constrain(brightness, 0, 255)` ensures the value stays within the valid range.
+- **Analog Output**: The `analogWrite(LED, brightness)` function adjusts the LED’s brightness using PWM.
+
+#### Implementation
+
+This simple yet effective demonstration bridges input data processing and real-world hardware control. It highlights the ESP32’s capability for real-time interactive applications.
+
+---
 
 ## Additional Resources
 

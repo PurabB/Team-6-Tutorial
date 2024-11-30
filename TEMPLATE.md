@@ -330,22 +330,22 @@ This simple yet effective demonstration bridges input data processing and real-w
 
 ---
 
-# Part 04: Setup and Loop - Putting Everything Together
+## Part 04: Setup and Loop - Putting Everything Together
 
-## Introduction
+### Introduction
 
 In this section, we will integrate everything you've learned so far and put it into a fully working program. You will learn how to set up your ESP32 to manage controller connections, handle data retrieval, and implement the gamepad data processing in the main loop.
 
----
 
-## Objective
+
+### Objective
 
 - Set up the controller system to connect and disconnect gamepads.
 - Process gamepad data in the main loop.
 - Control external devices (like an LED) based on gamepad input.
 
 
-## Background Information
+### Background Information
 
 - **Setup Function:** This function initializes your ESP32, sets up Bluetooth, and prepares everything necessary for the main loop to function correctly.
 - **Loop Function:** This function runs repeatedly and is responsible for checking gamepad inputs and performing actions like adjusting the brightness of an LED or dumping controller data.
@@ -353,7 +353,7 @@ In this section, we will integrate everything you've learned so far and put it i
 
 
 
-## Components
+### Components
 
 - ESP32 development board
 - Bluetooth-compatible game controller
@@ -361,7 +361,7 @@ In this section, we will integrate everything you've learned so far and put it i
 - Arduino IDE or PlatformIO
 
 
-## Instructional Steps
+### Instructional Steps
 
 1. **Setup the Gamepad System:** Initialize Bluetooth communication and register controller callbacks.
 2. **Define the Loop:** Implement logic to update and process controller data in the loop function.

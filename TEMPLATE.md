@@ -33,9 +33,9 @@ This tutorial demonstrates how to connect a Bluetooth game controller to an ESP3
 ## Getting Started
 ### Required Downloads and Installations
 ---
-software: Arduino IDE
-description: The Arduino Integrated Development Environment (IDE) is a cross-platform application used to write and upload programs to Arduino-compatible boards.
-installation process: 
+Software: Arduino IDE
+Description: The Arduino Integrated Development Environment (IDE) is a cross-platform application used to write and upload programs to Arduino-compatible boards.
+Installation Process: 
   - Download the Arduino IDE from the [official website](https://www.arduino.cc/en/software).
   - Follow the installation instructions for your operating system (Windows, macOS, or Linux).
   - Open the Arduino IDE and go to File > Preferences.

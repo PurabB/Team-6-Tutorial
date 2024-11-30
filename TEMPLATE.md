@@ -175,7 +175,7 @@ This section ensures a robust connection between the game controller and ESP32, 
 
 ---
 
-## Part 02: retrieving Gamepad Data
+## Part 02: Retrieving Gamepad Data
 
 ### Introduction
 

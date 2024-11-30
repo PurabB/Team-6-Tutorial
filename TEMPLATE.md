@@ -1,5 +1,5 @@
 ---
-title: Connecting Game Controller to any ESP32 dev module with Bluetooth tutorial.
+title: A Comprehensive Guide to Connecting a Game Controller to Any ESP32 Development Board via Bluetooth
 date: 11-25-2024
 authors:
   - name: Purab Balani

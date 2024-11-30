@@ -336,4 +336,5 @@ This simple yet effective demonstration bridges input data processing and real-w
 
 ### Useful links
 
-List any sources you used, documentation, helpful examples, similar projects etc.
+-(https://racheldebarros.com/esp32-projects/connect-your-game-controller-to-an-esp32/)
+-https://github.com/ricardoquesada/bluepad32-arduino

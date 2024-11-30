@@ -278,10 +278,8 @@ In this section, you will learn how to map the input from the game controller’
 
 - ESP32 development board
 - Bluetooth-compatible game controller
-- LED
-- Resistor (appropriate for the LED)
-- Breadboard and jumper wires
-- USB cable for programming and power
+- USB cable for programming and monitoring ESP32
+- Arduino IDE or PlatformIO
 
 ### Instructional
 
@@ -332,9 +330,164 @@ This simple yet effective demonstration bridges input data processing and real-w
 
 ---
 
+# Part 04: Setup and Loop - Putting Everything Together
+
+## Introduction
+
+In this section, we will integrate everything you've learned so far and put it into a fully working program. You will learn how to set up your ESP32 to manage controller connections, handle data retrieval, and implement the gamepad data processing in the main loop.
+
+---
+
+## Objective
+
+- Set up the controller system to connect and disconnect gamepads.
+- Process gamepad data in the main loop.
+- Control external devices (like an LED) based on gamepad input.
+
+
+## Background Information
+
+- **Setup Function:** This function initializes your ESP32, sets up Bluetooth, and prepares everything necessary for the main loop to function correctly.
+- **Loop Function:** This function runs repeatedly and is responsible for checking gamepad inputs and performing actions like adjusting the brightness of an LED or dumping controller data.
+- **Controller Callbacks:** You'll use callbacks to handle events like when a gamepad is connected or disconnected.
+
+
+
+## Components
+
+- ESP32 development board
+- Bluetooth-compatible game controller
+- USB cable for programming and monitoring ESP32
+- Arduino IDE or PlatformIO
+
+
+## Instructional Steps
+
+1. **Setup the Gamepad System:** Initialize Bluetooth communication and register controller callbacks.
+2. **Define the Loop:** Implement logic to update and process controller data in the loop function.
+3. **Control an LED:** Use a gamepad's input, like the right joystick axis, to control an LED's brightness.
+
+## Example 
+
+### Introduction
+
+The example code below ties everything together. It connects controllers, processes their inputs, and uses the right joystick axis to control an LED's brightness.
+
+### Example Code
+
+```cpp
+#include <Bluepad32.h>
+
+const unsigned int LED = 17;  // Define the LED pin
+
+ControllerPtr myControllers[BP32_MAX_GAMEPADS];
+
+// This callback gets called when a new gamepad is connected.
+void onConnectedController(ControllerPtr ctl) {
+    bool foundEmptySlot = false;
+    for (int i = 0; i < BP32_MAX_GAMEPADS; i++) {
+        if (myControllers[i] == nullptr) {
+            USBSerial.printf("CALLBACK: Controller connected, index=%d\n", i);
+            ControllerProperties properties = ctl->getProperties();
+            USBSerial.printf("Controller model: %s, VID=0x%04x, PID=0x%04x\n", 
+                              ctl->getModelName().c_str(), properties.vendor_id, properties.product_id);
+            myControllers[i] = ctl;
+            foundEmptySlot = true;
+            break;
+        }
+    }
+    if (!foundEmptySlot) {
+        USBSerial.println("CALLBACK: Controller connected, but could not find empty slot.");
+    }
+}
+
+// This callback gets called when a gamepad is disconnected.
+void onDisconnectedController(ControllerPtr ctl) {
+    bool foundController = false;
+    for (int i = 0; i < BP32_MAX_GAMEPADS; i++) {
+        if (myControllers[i] == ctl) {
+            USBSerial.printf("CALLBACK: Controller disconnected from index=%d\n", i);
+            myControllers[i] = nullptr;
+            foundController = true;
+            break;
+        }
+    }
+    if (!foundController) {
+        USBSerial.println("CALLBACK: Controller disconnected, but not found in myControllers.");
+    }
+}
+
+// Dump gamepad data to serial
+void dumpGamepad(ControllerPtr ctl) {
+    USBSerial.printf(
+        "idx=%d, dpad: 0x%02x, buttons: 0x%04x, axis L: %4d, %4d, axis R: %4d, %4d, brake: %4d, throttle: %4d, "
+        "misc: 0x%02x, gyro x:%6d y:%6d z:%6d, accel x:%6d y:%6d z:%6d\n",
+        ctl->index(),
+        ctl->dpad(),
+        ctl->buttons(),
+        ctl->axisX(),
+        ctl->axisY(),
+        ctl->axisRX(),
+        ctl->axisRY(),
+        ctl->brake(),
+        ctl->throttle(),
+        ctl->miscButtons(),
+        ctl->gyroX(),
+        ctl->gyroY(),
+        ctl->gyroZ(),
+        ctl->accelX(),
+        ctl->accelY(),
+        ctl->accelZ()
+    );
+}
+
+// Process gamepad input and control LED
+void processGamepad(ControllerPtr ctl) {
+    int axisValue = ctl->axisRY();  // Get the right Y-axis value (-511 to 512)
+    int brightness = map(axisValue, -511, 512, 255, 0);  // Map to PWM range
+    brightness = constrain(brightness, 0, 255);  // Ensure within valid range
+    analogWrite(LED, brightness);  // Apply brightness to LED
+    dumpGamepad(ctl);  // Dump controller data
+}
+
+// Process all connected controllers
+void processControllers() {
+    for (auto myController : myControllers) {
+        if (myController && myController->isConnected() && myController->hasData()) {
+            if (myController->isGamepad()) {
+                processGamepad(myController);
+            } else {
+                USBSerial.println("Unsupported controller");
+            }
+        }
+    }
+}
+
+// Arduino setup function
+void setup() {
+    USBSerial.begin(115200);
+    USBSerial.printf("Firmware: %s\n", BP32.firmwareVersion());
+    const uint8_t* addr = BP32.localBdAddress();
+    USBSerial.printf("BD Addr: %2X:%2X:%2X:%2X:%2X:%2X\n", addr[0], addr[1], addr[2], addr[3], addr[4], addr[5]);
+
+    BP32.setup(&onConnectedController, &onDisconnectedController);
+    BP32.forgetBluetoothKeys();  // Optionally forget previous Bluetooth keys
+    BP32.enableVirtualDevice(false);  // Disable virtual mouse/touchpad support
+}
+
+// Arduino loop function
+void loop() {
+    bool dataUpdated = BP32.update();
+    if (dataUpdated) {
+        processControllers();
+    }
+    delay(150);  // Yield to lower priority tasks to avoid watchdog timeout
+}
+```
+
 ## Additional Resources
 
 ### Useful links
 
-- (https://racheldebarros.com/esp32-projects/connect-your-game-controller-to-an-esp32/)
+- https://racheldebarros.com/esp32-projects/connect-your-game-controller-to-an-esp32/
 - https://github.com/ricardoquesada/bluepad32-arduino

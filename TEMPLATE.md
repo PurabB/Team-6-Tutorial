@@ -101,8 +101,65 @@ This example demonstrates how to detect when a game controller connects to the E
 
 ### Example
 
-![image](https://github.com/user-attachments/assets/51e16b75-9ca7-4fa5-a70d-b401a36cd52b)
-![image](https://github.com/user-attachments/assets/381ea05c-1185-41f1-a1ee-a25e7aceee6b)
+```cpp
+#include <Bluepad32.h>
+const unsigned int LED{17}; // define a constant for the LED pin
+
+ControllerPtr myControllers[BP32_MAX_GAMEPADS];
+
+// This callback gets called any time a new gamepad is connected.
+// Up to 4 gamepads can be connected at the same time.
+void onConnectedController(ControllerPtr ctl) {
+    bool foundEmptySlot = false;
+    for (int i = 0; i < BP32_MAX_GAMEPADS; i++) {
+        if (myControllers[i] == nullptr) {
+            USBSerial.printf("CALLBACK: Controller is connected, index=%d\n", i);
+            // Additionally, you can get certain gamepad properties like:
+            // Model, VID, PID, BTAddr, flags, etc.
+            ControllerProperties properties = ctl->getProperties();
+            USBSerial.printf("Controller model: %s, VID=0x%04x, PID=0x%04x\n", ctl->getModelName().c_str(), properties.vendor_id,
+                           properties.product_id);
+            myControllers[i] = ctl;
+            foundEmptySlot = true;
+            break;
+        }
+    }
+    if (!foundEmptySlot) {
+        USBSerial.println("CALLBACK: Controller connected, but could not found empty slot");
+    }
+}
+
+void onDisconnectedController(ControllerPtr ctl) {
+    bool foundController = false;
+
+    for (int i = 0; i < BP32_MAX_GAMEPADS; i++) {
+        if (myControllers[i] == ctl) {
+            USBSerial.printf("CALLBACK: Controller disconnected from index=%d\n", i);
+            myControllers[i] = nullptr;
+            foundController = true;
+            break;
+        }
+    }
+
+    if (!foundController) {
+        USBSerial.println("CALLBACK: Controller disconnected, but not found in myControllers");
+    }
+}
+
+void processControllers() {
+    for (auto myController : myControllers) {
+        if (myController && myController->isConnected() && myController->hasData()) {
+            if (myController->isGamepad()) {
+                processGamepad(myController);
+            }
+            else {
+                USBSerial.println("Unsupported controller");
+            }
+        }
+    }
+}
+
+```
 
 ## Part 02: retrieving Gamepad Data
 
@@ -167,8 +224,67 @@ void dumpGamepad(ControllerPtr ctl) {
         ctl->accelZ()        // Accelerometer Z
     );
 }
+```
 
+## Part 03: Mapping Controller Inputs to LED Brightness
 
+### Introduction
+
+In this section, you will learn how to map the input from the game controller’s joystick to control the brightness of an LED. This exercise demonstrates how controller inputs can be used for real-time hardware interaction.
+
+### Objective
+
+- Understand how to retrieve joystick input values.
+- Learn to map input values to a hardware output range.
+- Control LED brightness using joystick movements.
+- Explore the use of PWM for LED dimming.
+
+### Background Information
+
+- **PWM (Pulse Width Modulation)**: Used to simulate analog output for controlling devices like LEDs.
+- **Mapping Values**: The `map()` function scales an input range to an output range.
+- **Joystick Axis Input**: Game controllers output analog values for joystick movements, which can be utilized for dynamic hardware control.
+
+### Components
+
+- ESP32 development board
+- Bluetooth-compatible game controller
+- LED
+- Resistor (appropriate for the LED)
+- Breadboard and jumper wires
+- USB cable for programming and power
+
+### Instructional
+
+1. **Setup LED Output**: Connect an LED to the ESP32 with an appropriate resistor.
+2. **Access Joystick Data**: Use the `axisRY()` method to retrieve the joystick's Y-axis value.
+3. **Map Axis Value**: Convert the joystick’s range (-511 to 512) to a brightness range (0 to 255) using the `map()` function.
+4. **Constrain Brightness**: Use `constrain()` to ensure the brightness value stays within the valid range.
+5. **Apply PWM to LED**: Use the `analogWrite()` function to set the LED brightness based on the mapped value.
+6. **Monitor LED Behavior**: Observe how the LED’s brightness changes as the joystick is moved.
+
+## Example
+
+### Introduction
+
+The following example maps the right joystick’s Y-axis value to control an LED’s brightness. The joystick input is processed in real-time, and the LED responds by dimming or brightening accordingly.
+
+### Example Code
+
+```cpp
+void processGamepad(ControllerPtr ctl) {
+    int axisValue = ctl->axisRY();  // Get the right Y-axis value (-511 to 512)
+
+    // Map axis value to PWM range (0 to 255)
+    int brightness = map(axisValue, -511, 512, 255, 0);  // -511 is max bright, 512 is dim
+    brightness = constrain(brightness, 0, 255);  // Ensure valid range
+
+    analogWrite(LED, brightness);  // Apply PWM to LED pin
+
+    // Optional: Dump gamepad data for debugging
+    dumpGamepad(ctl);
+}
+```
 
 
 ## Additional Resources

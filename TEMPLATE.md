@@ -41,7 +41,7 @@ Installation Process:
   - Open the Arduino IDE and go to File > Preferences.
   - In the "Additional Boards Manager URLs" field, add the following URLs:
     `https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json`
-    `https://raw.githubusercontent.com/ricardoquesada/esp32-arduino-lib builder/master/bluepad32_files/package_esp32_bluepad32_index.json`
+    `https://raw.githubusercontent.com/ricardoquesada/esp32-arduino-lib-builder/master/bluepad32_files/package_esp32_bluepad32_index.json`
   - Go to Tools > Board > Boards Manager, search for "ESP32", and install the ESP32 by Espressif as well as esp32_bluepad32 by Ricardo Quesada board package.
   - Go to Tools > Board > esp32_bluepad32, search for your esp board module in my case it is ESP32S3 Dev Module, and choose your COM port.
 ---

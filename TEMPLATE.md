@@ -485,6 +485,10 @@ void loop() {
 }
 ```
 
+
+https://github.com/user-attachments/assets/be219926-b413-4369-850c-38ff4f5fae3b
+
+
 ## Analysis
 
 This part builds on the previous sections by demonstrating how real-time gamepad input can be used to control an external device, like an LED, based on the joystick's Y-axis input. This showcases the practical application of game controller data to influence physical hardware, an essential concept for interactive projects.

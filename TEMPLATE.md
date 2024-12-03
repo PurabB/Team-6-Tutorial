@@ -485,9 +485,7 @@ void loop() {
 }
 ```
 
-
-https://github.com/user-attachments/assets/be219926-b413-4369-850c-38ff4f5fae3b
-
+https://github.com/user-attachments/assets/34143fbf-1968-48fc-ae7c-aee796cb4d17
 
 ## Analysis
 
